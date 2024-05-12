@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "npx prettier . --write"
+    "format": "npx prettier . --write",
+    "d-graph:init": "cd \"$(git rev-parse --show-toplevel)\" && mkdir -p ./.workbench",
+    "d-graph:svg": "npm run d-graph:init && npx depcruise ${npm_config_path} --include-only '^src' --output-type dot | dot -T svg > ./.workbench/dependency-graph.svg",
+    "d-graph:md": "npm run d-graph:init && echo '```mermaid' > ./.workbench/dependency-graph.md && npx depcruise ${npm_config_path} --include-only '^src' --output-type mermaid >> ./.workbench/dependency-graph.md && echo '```' >> ./.workbench/dependency-graph.md"
   },
   "dependencies": {
     "@emoji-mart/data": "^1.2.1",
@@ -33,6 +36,7 @@
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
     "daisyui": "^4.10.5",
+    "dependency-cruiser": "^16.3.2",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^18.0.0",

@@ -12,6 +12,52 @@ Next.js や TypeScript などの練習用に作成したツール集です。
 
 - [https://toys.kems-clew.net](https://toys.kems-clew.net)
 
+## Memo
+
+### 依存関係図を出力する
+
+[`package.json`](package.json) > `"scripts"` にて定義しているコマンド。次のとおり使用する。
+
+```shell
+# .workbench/dependency-graph.svg へ書き出し
+$ npm run d-graph:svg -path=./src/app/\(toys\)/congrats-button/page.tsx
+
+# .workbench/dependency-graph.md へ mermaid 記法で書き出し
+$ npm run d-graph:md -path=./src/app/\(toys\)/congrats-button/page.tsx
+```
+
+下図のように出力される。
+
+```mermaid
+flowchart LR
+
+subgraph 0["src"]
+subgraph 1["app"]
+subgraph 2["(toys)"]
+subgraph 3["congrats-button"]
+4["page.tsx"]
+5["page.body.mdx"]
+6["page.supplement.mdx"]
+end
+end
+end
+subgraph 7["components"]
+subgraph 8["Atoms"]
+9["Version.tsx"]
+C["EmojiPicker.tsx"]
+end
+subgraph A["Organisms"]
+B["CongratsButton.tsx"]
+end
+end
+end
+4-->5
+4-->6
+4-->9
+4-->B
+B-->C
+```
+
 ## Reference
 
 ### Next.js
@@ -47,3 +93,9 @@ Next.js や TypeScript などの練習用に作成したツール集です。
   - [Install · Prettier](https://prettier.io/docs/en/install)
 - [prettier-plugin-organize-imports - npm](https://www.npmjs.com/package/prettier-plugin-organize-imports)
 - [prettier-plugin-organize-imports で import 文を自動フォーマットする](https://zenn.dev/wakamsha/articles/prettier-plugin-organize-imports)
+
+### Dependency cruiser
+
+- [ESLintだけでは守れない。Dependency cruiserによるアーキテクチャー保護](https://zenn.dev/hedrall/articles/f565147bee5da8)
+- [dependency-cruiserについて理解する \#JavaScript - Qiita](https://qiita.com/yamatai12/items/fce4104e273981f78807)
+- [Download \| Graphviz](https://graphviz.org/download/)
